@@ -30,3 +30,5 @@ coverage/
 *.tgz
 .env.local
 .env.*.local
+
+MongoDBCred
