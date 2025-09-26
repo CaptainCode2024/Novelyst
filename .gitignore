@@ -31,4 +31,5 @@ coverage/
 .env.local
 .env.*.local
 
-MongoDBCred
+MongoDBCred.txt
+gitMessage.txt
