@@ -21,7 +21,7 @@ app.post('/books', async (request, response) => {
         if (!request.body.title || !request.body.author || !request.body.publishYear) {
             return response.status(400).send({
                 message: "Send all the required fields: title, author, publishYear"
-            })
+            });
         }
 
         const newBook = {
@@ -70,6 +70,35 @@ app.get('/books/:id', async (request, response) => {
     catch(error) {
         console.log(error.message);
         response.status(500).send({message: error.message}); 
+    }
+});
+
+// Route to update a book
+app.put('/books/:id', async (request, response) => {
+    try {
+        if (
+            !request.body.title || 
+            !request.body.author || 
+            !request.body.publishYear
+        ) {
+            return response.status(400).send({
+                message: "Send all the required fields: title, author, publishYear"
+            });
+        }
+        
+        const {id} = request.params;  // Get ID from request parameters
+        const result = await Book.findByIdAndUpdate(id, request.body);  // Update book by ID
+        
+        if(!result) {
+            return response.status(404).send({message: `Book with id: ${id} not found`});
+        }
+
+        return response.status(200).send({message: "Book updated successfully"});
+    }
+        
+    catch(error) {
+        console.log(error.message);
+        response.status(500).send({message: error.message});
     }
 });
 
