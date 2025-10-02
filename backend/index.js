@@ -1,8 +1,8 @@
 import express from "express";  // Backend Framework
-import {PORT, NovelystClusterMongoURL} from "./config.js";
+import { PORT, NovelystClusterMongoURL } from "./config.js";
 import mongoose from "mongoose";  // ODM library for MongoDB - Node.js
-import {Book} from "./models/book.js"  // Book Model
-
+import { Book } from "./models/bookModel.js"  // Book Model
+import bookRoutes from "./routes/bookRoutes.js" // Book Routes
 
 const app = express();
 
@@ -13,112 +13,9 @@ app.use(express.json());
 app.get('/', (request, response) => {
     console.log(request)
     return response.status(234).send('Welcome to Novelyst')
-}); 
-
-// Route to add a new book
-app.post('/books', async (request, response) => {
-    try {
-        if (!request.body.title || !request.body.author || !request.body.publishYear) {
-            return response.status(400).send({
-                message: "Send all the required fields: title, author, publishYear"
-            });
-        }
-
-        const newBook = {
-            title: request.body.title,
-            author: request.body.author,
-            publishYear: request.body.publishYear
-        };
-
-        const book = await Book.create(newBook);
-
-        return response.status(201).send(book);
-
-    }
-    catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
 });
 
-// Route to get all books from database
-app.get('/books', async (request, response) => {
-    try {
-        const books = await Book.find({});  // Find all books
-        
-        return response.status(200).json({
-            count: books.length,
-            data: books
-        });
-    }
-    catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message}); 
-    }
-});
-
-// Route to get a single book by ID from database
-app.get('/books/:id', async (request, response) => {
-    try {
-
-        const id = request.params.id;  // Get ID from request parameters
-
-        const book = await Book.findById(id);  // Find book by ID
-        
-        return response.status(200).json(book);
-    }
-    catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message}); 
-    }
-});
-
-// Route to update a book
-app.put('/books/:id', async (request, response) => {
-    try {
-        if (
-            !request.body.title || 
-            !request.body.author || 
-            !request.body.publishYear
-        ) {
-            return response.status(400).send({
-                message: "Send all the required fields: title, author, publishYear"
-            });
-        }
-        
-        const {id} = request.params;  // Get ID from request parameters
-        const result = await Book.findByIdAndUpdate(id, request.body);  // Update book by ID
-        
-        if(!result) {
-            return response.status(404).send({message: `Book with id: ${id} not found`});
-        }
-
-        return response.status(200).send({message: "Book updated successfully"});
-    }
-        
-    catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
-
-// Route to delete a book
-app.delete('/books/:id', async (request, response) => {
-    try {
-        const {id} = request.params;  // Get ID from request parameters
-        const result = await Book.findByIdAndDelete(id);  // Delete book by ID
-
-        if(!result) {
-            return response.status(404).json({message: `Book with id: ${id} not found`});
-        }
-
-        return response.status(200).json({message: "Book deleted successfully"});
-    }
-    catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+app.use('/books', bookRoutes); // Use book routes
 
 // Connect to NovelystCluster @MongoDB 
 mongoose
