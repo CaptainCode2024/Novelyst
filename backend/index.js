@@ -102,6 +102,24 @@ app.put('/books/:id', async (request, response) => {
     }
 });
 
+// Route to delete a book
+app.delete('/books/:id', async (request, response) => {
+    try {
+        const {id} = request.params;  // Get ID from request parameters
+        const result = await Book.findByIdAndDelete(id);  // Delete book by ID
+
+        if(!result) {
+            return response.status(404).json({message: `Book with id: ${id} not found`});
+        }
+
+        return response.status(200).json({message: "Book deleted successfully"});
+    }
+    catch(error) {
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
+
 // Connect to NovelystCluster @MongoDB 
 mongoose
     .connect(NovelystClusterMongoURL)  // Returns a Promise
