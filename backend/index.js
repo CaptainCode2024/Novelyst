@@ -1,13 +1,22 @@
 import express from "express";  // Backend Framework
 import { PORT, NovelystClusterMongoURL } from "./config.js";
 import mongoose from "mongoose";  // ODM library for MongoDB - Node.js
-import { Book } from "./models/bookModel.js"  // Book Model
 import bookRoutes from "./routes/bookRoutes.js" // Book Routes
+import cors from "cors"; // Import CORS middleware
 
 const app = express();
 
 // Middleware for parsing request body
 app.use(express.json());
+
+// Middleware for handling CORS Policy
+app.use(
+    cors({
+        origin: 'http://localhost:3000', // Allow requests from this origin  
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],    
+        allowedHeaders: ['Content-Type']  
+    })
+);
 
 // First Route
 app.get('/', (request, response) => {
