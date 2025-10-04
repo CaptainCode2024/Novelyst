@@ -1,12 +1,12 @@
-import React from 'react'  // Importing React library
-import { Routes, Route } from 'react-router-dom'  // Importing routing components
+import React from 'react';  // Importing React library
+import { Routes, Route } from 'react-router-dom';  // Importing routing components
 
 // Importing page components
-import Home from './pages/Home.jsx'
-import CreateBook from './pages/CreateBook.jsx'  
-import EditBook from './pages/EditBook.jsx'  
-import DeleteBook from './pages/DeleteBook.jsx'  
-import ShowBook from './pages/ShowBook.jsx'  
+import Home from './pages/Home.jsx';
+import CreateBook from './pages/CreateBook.jsx'; 
+import EditBook from './pages/EditBook.jsx';  
+import DeleteBook from './pages/DeleteBook.jsx';  
+import ShowBook from './pages/ShowBook.jsx';
 
 const App = () => {
   return (
@@ -20,4 +20,4 @@ const App = () => {
   ) 
 }
 
-export default App
+export default App;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const CreateBooks = () => {
   return (
@@ -6,4 +6,4 @@ const CreateBooks = () => {
   )
 }
 
-export default CreateBooks
+export default CreateBooks;

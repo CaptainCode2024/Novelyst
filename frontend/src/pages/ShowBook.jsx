@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const ShowBook = () => {
   return (
@@ -6,4 +6,4 @@ const ShowBook = () => {
   )
 }
 
-export default ShowBook
+export default ShowBook;

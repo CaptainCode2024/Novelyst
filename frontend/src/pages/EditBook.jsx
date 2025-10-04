@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const EditBooks = () => {
   return (
@@ -6,4 +6,4 @@ const EditBooks = () => {
   )
 }
 
-export default EditBooks
+export default EditBooks;

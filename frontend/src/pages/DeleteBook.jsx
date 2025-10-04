@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const DeleteBooks = () => {
   return (
@@ -6,4 +6,4 @@ const DeleteBooks = () => {
   )
 }
 
-export default DeleteBooks
+export default DeleteBooks;
