@@ -10,6 +10,10 @@ const app = express();
 app.use(express.json());
 
 // Middleware for handling CORS Policy
+app.use(cors()); // Enable CORS for all routes
+
+// More specific CORS configuration (optional)
+/*
 app.use(
     cors({
         origin: 'http://localhost:3000', // Allow requests from this origin  
@@ -17,6 +21,7 @@ app.use(
         allowedHeaders: ['Content-Type']  
     })
 );
+*/
 
 // First Route
 app.get('/', (request, response) => {
